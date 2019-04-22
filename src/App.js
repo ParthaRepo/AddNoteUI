@@ -1,28 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Todo from './components/Todo';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    const todoList = [{text:'Prepare breakfast'}, 
+    {text:'Pack Lunch'},
+    {text: 'Attend standup'},
+    {text: 'Check for pending bills'}];
+    this.state = {
+      todos: todoList,
+    }
+  }
+
+  addTodo() {
+    const text = prompt ('Please enter your todo text');
+    this.setState = ({
+      todos: [...this.state.todos, {text: text}],
+    })
+  }
+  
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <button onClick={()=>this.addTodo()}>Add note</button>
+        <ul>
+          {this.state.todos.map((todo, index) => <Todo key={index} todo={todo} />)}
+        </ul>
       </div>
     );
   }
 }
+
 
 export default App;
